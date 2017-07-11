@@ -2,10 +2,11 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
 @import url(http://weloveiconfonts.com/api/?family=entypo);
 
-$spinner-color: #e1e1e1;
-$border-color: #444;
-$btn-background-color: rgba(255, 255, 255, .65);
-$btn-border-color: #666;
+$milk-color: #e1e1e1;
+$lighter-black: #444;
+$lightest-black: rgba(255, 255, 255, .65);
+$light-black: #666;
+$gold-color: rgb(173, 170, 136);
 
 * {
     box-sizing: border-box;
@@ -14,6 +15,16 @@ $btn-border-color: #666;
 html, body {
     width: 100%;
     height: 100%;
+}
+
+h1 {
+    text-align: center;
+    font-family: "Arial", sans-serif;
+    font-size: 85px;
+    font-weight: bold;
+    width: 100%;
+    color: $gold-color;
+    text-shadow: 0 -1px 0 #858585, 0 1px 10px rgba(0, 0, 0, .6), 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .2), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 7px 10px rgba(0, 0, 0, .25), 0 15px 10px rgba(0, 0, 0, .2), 0 25px 15px rgba(0, 0, 0, .15);
 }
 
 img {
@@ -38,7 +49,7 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
     .grid {
         margin: 15px;
-        padding: 10px;
+        padding: 15px;
         background: white;
         box-shadow: 0 2px 1px rgba(170, 170, 170, 0.25);
     }
@@ -56,8 +67,8 @@ body {
     max-width: 100%;
 
     input {
-        background-color: $btn-background-color;
-        border: 1px solid $btn-border-color;
+        background-color: $lightest-black;
+        border: 1px solid $light-black;
         border-right: 0;
         box-shadow: 0 0 .5rem rgba(0, 0, 0, .45);
         font-size: 1.5em;
@@ -81,7 +92,7 @@ body {
         display: grid;
         grid-template-columns: 1fr;
         grid-template-areas: "a" "b";
-        border-left: 1px solid $btn-border-color;
+        border-left: 1px solid $light-black;
         border-radius: 0 5px 5px 0;
         overflow: hidden;
         float: left;
@@ -90,8 +101,8 @@ body {
         z-index: 1;
 
         .btn-group__btn {
-            background: $spinner-color;
-            border-right: 1px solid $border-color;
+            background: $milk-color;
+            border-right: 1px solid $lighter-black;
             font-weight: bold;
             cursor: pointer;
             display: block;
@@ -105,23 +116,23 @@ body {
             z-index: 2;
 
             &:hover {
-                background: darken($spinner-color, 10%);
+                background: darken($milk-color, 10%);
             }
 
             &::selected {
-                background: $spinner-color;
+                background: $milk-color;
             }
         }
 
         .btn-group__btn--decrease {
             grid-area: b;
             border-radius: 0 0 5px 0;
-            border-bottom: 1px solid $border-color;
+            border-bottom: 1px solid $lighter-black;
         }
         .btn-group__btn--increase {
             grid-area: a;
-            border-top: 1px solid $border-color;
-            border-bottom: 1px solid $border-color;
+            border-top: 1px solid $lighter-black;
+            border-bottom: 1px solid $lighter-black;
             border-radius: 0 5px 0 0;
         }
     }
