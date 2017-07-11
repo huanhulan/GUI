@@ -1,6 +1,7 @@
 import $ from 'jquery'
 import EventEmitter2 from 'eventemitter2'
 import listenerFactory from '../../util/listenerFactory'
+import throttle from '../../util/throttle'
 
 class CounterView {
     constructor(model, element) {
@@ -11,11 +12,7 @@ class CounterView {
         this.inputChangeEvt = listenerFactory('inputChange', this._server);
         this.increaseBtnClickEvt = listenerFactory('increaseBtnClickEvt', this._server);
         this.decreaseBtnClickEvt = listenerFactory('decreaseBtnClickEvt', this._server);
-        this.tmpl = `<div class="counter">
-                        <input type="number" name="counter">
-                        <div class="btn-group">
-                        <button data-name="decrease" class="btn-group__btn btn-group__btn--decrease">-</button>
-                        <button data-name="increase" class="btn-group__btn btn-group__btn--increase">+</button></div></div>`
+        this.tmpl = `<div class="counter"><input type="number" name="counter"><div class="btn-group"><button data-name="decrease" class="btn-group__btn btn-group__btn--decrease">-</button><button data-name="increase" class="btn-group__btn btn-group__btn--increase">+</button></div></div>`
     }
 
     mount() {
@@ -47,12 +44,14 @@ class CounterView {
             increaseBtn = $(this._element).find('button:last'),
             input = $(this._element).find('input');
 
-        decreaseBtn.click(() => {
+        decreaseBtn.click(throttle(() => {
             this._server.emit('decreaseBtnClickEvt')
-        });
-        increaseBtn.click(() => {
+        }, 200));
+
+        increaseBtn.click(throttle(() => {
             this._server.emit('increaseBtnClickEvt')
-        });
+        }, 200));
+
         input.change((e) => {
             this._server.emit('inputChange', e.target.value);
         });

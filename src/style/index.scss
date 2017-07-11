@@ -3,6 +3,7 @@
 @import url(http://weloveiconfonts.com/api/?family=entypo);
 
 $spinner-color: #e1e1e1;
+$border-color: #444;
 
 * {
     box-sizing: border-box;
@@ -72,7 +73,7 @@ body {
 
         .btn-group__btn {
             background: $spinner-color;
-            border-right: 1px solid #444;
+            border-right: 1px solid $border-color;
             font-weight: bold;
             cursor: pointer;
             display: block;
@@ -86,7 +87,7 @@ body {
             z-index: 2;
 
             &:hover {
-                background: darken(#e1e1e1, 10%);
+                background: darken($spinner-color, 10%);
             }
 
             &::selected {
@@ -97,12 +98,12 @@ body {
         .btn-group__btn--decrease {
             grid-area: b;
             border-radius: 0 0 5px 0;
-            border-bottom: 1px solid #444;
+            border-bottom: 1px solid $border-color;
         }
         .btn-group__btn--increase {
             grid-area: a;
-            border-top: 1px solid #444;
-            border-bottom: 1px solid #444;
+            border-top: 1px solid $border-color;
+            border-bottom: 1px solid $border-color;
             border-radius: 0 5px 0 0;
         }
     }
