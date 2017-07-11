@@ -3,11 +3,10 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const sassLoaders = [
-    'css-loader',
-    'postcss-loader',
-    'sass-loader?indentedSyntax=sass&includePaths[]=' + path.resolve(__dirname, './src')
-]
+const extractSass = new ExtractTextPlugin({
+    filename: "[name].[contenthash].css"
+});
+
 
 module.exports = {
     entry: "./src/index.js",
@@ -48,7 +47,7 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
-        new ExtractTextPlugin('[name].css')
+        extractSass
     ],
     module: {
         rules: [{
@@ -57,8 +56,18 @@ module.exports = {
             loader: 'source-map-loader',
             exclude: /(node_modules)/,
         }, {
-            test: /\.sass$/,
-            loader: ExtractTextPlugin.extract('style-loader', sassLoaders.join('!'))
+            test: /\.scss$/,
+            use: [{
+                loader: "style-loader"
+            }, {
+                loader: "css-loader", options: {
+                    sourceMap: true
+                }
+            }, {
+                loader: "sass-loader", options: {
+                    sourceMap: true
+                }
+            }]
         }],
         loaders: [
             {
@@ -77,9 +86,6 @@ module.exports = {
                     plugins: ['transform-runtime'],
                     presets: ['es2015', 'stage-0'],
                 }
-            }, {
-                test: /\.sass$/,
-                loader: ExtractTextPlugin.extract('style-loader', sassLoaders.join('!'))
             }
         ]
     }
