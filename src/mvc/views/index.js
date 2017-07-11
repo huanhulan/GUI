@@ -50,7 +50,7 @@ class CounterView {
             this._server.emit('increaseBtnClickEvt')
         });
         input.change((e) => {
-            this._server.emit('inputChange', e.value);
+            this._server.emit('inputChange', e.target.value);
         });
     }
 }
