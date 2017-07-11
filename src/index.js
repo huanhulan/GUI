@@ -4,4 +4,5 @@
 import mvc from './mvc'
 import $ from 'jquery'
 import './style/index.scss'
-mvc($('#container'));
+
+mvc($('#mvc'));
