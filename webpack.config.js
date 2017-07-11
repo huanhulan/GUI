@@ -1,5 +1,13 @@
 const webpack = require('webpack');
 const path = require('path');
+const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const sassLoaders = [
+    'css-loader',
+    'postcss-loader',
+    'sass-loader?indentedSyntax=sass&includePaths[]=' + path.resolve(__dirname, './src')
+]
 
 module.exports = {
     entry: "./src/index.js",
@@ -12,7 +20,7 @@ module.exports = {
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".webpack.js", ".web.js", ".js"]
+        extensions: [".webpack.js", ".web.js", ".js", '.sass']
     },
     devServer: {
         // Enable history API fallback so HTML5 History API based
@@ -39,7 +47,8 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin()
+        new webpack.NamedModulesPlugin(),
+        new ExtractTextPlugin('[name].css')
     ],
     module: {
         rules: [{
@@ -48,9 +57,8 @@ module.exports = {
             loader: 'source-map-loader',
             exclude: /(node_modules)/,
         }, {
-            test: /\.css$/,
-            use: ['style-loader', 'css-loader'],
-            exclude: /(node_modules)/
+            test: /\.sass$/,
+            loader: ExtractTextPlugin.extract('style-loader', sassLoaders.join('!'))
         }],
         loaders: [
             {
@@ -69,7 +77,10 @@ module.exports = {
                     plugins: ['transform-runtime'],
                     presets: ['es2015', 'stage-0'],
                 }
-            },
+            }, {
+                test: /\.sass$/,
+                loader: ExtractTextPlugin.extract('style-loader', sassLoaders.join('!'))
+            }
         ]
     }
 };

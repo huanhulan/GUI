@@ -11,7 +11,7 @@ class CounterView {
         this.inputChangeEvt = listenerFactory('inputChange', this._server);
         this.increaseBtnClickEvt = listenerFactory('increaseBtnClickEvt', this._server);
         this.decreaseBtnClickEvt = listenerFactory('decreaseBtnClickEvt', this._server);
-        this.tmpl = `<input type="number" name="counter"><button data-name="decrease">-</button><button data-name="increase">-</button>`
+        this.tmpl = `<input type="number" name="counter"><button data-name="decrease">-</button><button data-name="increase">+</button>`
     }
 
     mount() {
