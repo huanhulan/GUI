@@ -1,5 +1,5 @@
 /**
- * Created by huanglei13 on 2017/7/11.
+ * Created by huanhulan on 2017/7/11.
  */
 import counterModel from './models'
 import counterView from './views'
