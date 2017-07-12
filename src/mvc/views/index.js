@@ -3,6 +3,11 @@ import EventEmitter2 from 'eventemitter2'
 import listenerFactory from '../../util/listenerFactory'
 import throttle from '../../util/throttle'
 
+/**
+ * The View. View presents the model and provides
+ * the UI events. The controller is attached to these
+ * events to handle the user interaction.
+ */
 class CounterView {
     constructor(model, element) {
         this._model = model;
@@ -12,7 +17,7 @@ class CounterView {
         this.inputChangeEvt = listenerFactory('inputChange', this._server);
         this.increaseBtnClickEvt = listenerFactory('increaseBtnClickEvt', this._server);
         this.decreaseBtnClickEvt = listenerFactory('decreaseBtnClickEvt', this._server);
-        this.tmpl = `<div class="counter"><input type="number" name="counter"><div class="btn-group"><button data-name="decrease" class="btn-group__btn btn-group__btn--decrease">-</button><button data-name="increase" class="btn-group__btn btn-group__btn--increase">+</button></div></div>`
+        this.tmpl = `<div class="counter"><input type="number" name="counter"><div class="btn-group"><button data-name="decrease" class="btn-group__btn btn-group__btn--decrease">-</button><button data-name="increase" class="btn-group__btn btn-group__btn--increase">+</button></div></div><p></p>`
     }
 
     mount() {
@@ -24,8 +29,11 @@ class CounterView {
 
     refresh() {
         let input = $(this._element).find('input'),
+            p = $(this._element).find('p'),
             count = this._model.getCount();
+
         input.val(count);
+        p.html(count);
     }
 
     handleError(str) {

@@ -1,7 +1,10 @@
 import EventEmitter2 from 'eventemitter2'
 import listenerFactory from '../../util/listenerFactory'
 
-
+/**
+ * The Model. Model stores items and notifies
+ * observers about changes.
+ */
 class CounterModel {
     constructor() {
         this._count = 0;
@@ -34,7 +37,12 @@ class CounterModel {
 
     change(input) {
         let tmp = +input;
-        return Number.isInteger(tmp) ? this._count = tmp : this.error(`${input} is not an integer`);
+        if (Number.isInteger(tmp)) {
+            this._count = tmp;
+            return this._server.emit('change');
+        } else {
+            return this.error(`${input} is not an integer`);
+        }
     }
 }
 
