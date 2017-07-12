@@ -10,7 +10,7 @@ class CounterView {
     constructor(element) {
         this._element = element;
         this.presenter = null;
-        this.tmpl = `<div class="counter"><input type="number" name="counter"><div class="btn-group"><button data-name="decrease" class="btn-group__btn btn-group__btn--decrease">-</button><button data-name="increase" class="btn-group__btn btn-group__btn--increase">+</button></div></div><p></p>`
+        this.tmpl = `<div class="counter"><input type="number" name="counter" class="counter__input"><div class="btn-group"><button data-name="decrease" class="btn-group__btn btn-group__btn--decrease">-</button><button data-name="increase" class="btn-group__btn btn-group__btn--increase">+</button></div></div><p></p>`
     }
 
     mount() {
