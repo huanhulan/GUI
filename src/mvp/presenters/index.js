@@ -30,9 +30,13 @@ class CounterPresenter {
     }
 
     observeModel() {
-        return this._model.changeEvt(() => {
+        this._model.changeEvt(() => {
             this.setCount();
-        })
+        });
+
+        this._model.errorEvt((str) => {
+            return window.alert(str);
+        });
     }
 
     setCount() {
