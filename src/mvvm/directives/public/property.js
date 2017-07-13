@@ -6,7 +6,6 @@ export default (bindName, node, mvvm, propertyName) => {
     let evtName = `${bindName}_Changed`;
 
     mvvm._server.on(evtName, (v) => {
-        console.log('set style')
         mvvm._data[bindName] = v;
         node.setAttribute(propertyName, v);
     });
