@@ -16,11 +16,14 @@ class MVVM {
             watch: {},
             // components: {}
         }, config);
-        this.data = $.extend({}, this.options.data);
-        Object.defineProperty(this, '_data', {
-            enumerable: false,
-            value: Object.create(null)
-        });
+        this.data = JSON.parse(JSON.stringify(this.options.data));
+
+        this._data = JSON.parse(JSON.stringify(this.data));
+        // Object.defineProperty(this, '_data', {
+        //     enumerable: false,
+        //     value: Object.create(null)
+        // });
+
         this._server = new EventEmitter2();
         Object.keys(this.options.watch).forEach((evt) => {
             if (isFunction(this.options.watch[evt])) {
@@ -30,10 +33,16 @@ class MVVM {
     }
 
     mount(element) {
-        $(element).append(compiler(this, this.options.template));
-        if (this.options.ready && isFunction(this.options.ready)) {
-            return this.options.ready.apply(this);
+        if (this.options.beforeMount && isFunction(this.options.beforeMount)) {
+            this.options.beforeMount.apply(this);
         }
+
+        $(element).append(compiler(this, this.options.template));
+
+        if (this.options.afterMount && isFunction(this.options.afterMount)) {
+            this.options.afterMount.apply(this);
+        }
+        return this;
     }
 }
 

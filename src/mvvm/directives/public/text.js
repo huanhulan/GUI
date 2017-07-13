@@ -1,18 +1,18 @@
-import $ from 'jquery'
-
 /**
  * binder for updating text node and corresponding model
  * which wrapped with double quote in template.
  */
 export default (bindName, node, mvvm) => {
     let evtName = `${bindName}_Changed`;
+    let type = typeof mvvm.data[bindName];
+    let constructor = type === 'number' ? Number : String;
 
     mvvm._server.on(evtName, (v) => {
-        mvvm._data[bindName] = v;
-        return $(node).text(v);
+        mvvm._data[bindName] = constructor(v);
+        return node.textContent = v;
     });
 
-    Object.defineProperty(mvvm.data, bindName, {
+    return Object.defineProperty(mvvm.data, bindName, {
         get(){
             return mvvm._data[bindName];
         },
@@ -20,5 +20,5 @@ export default (bindName, node, mvvm) => {
             if (v === mvvm._data[bindName]) return;
             mvvm._server.emit(evtName, v);
         }
-    })
+    });
 }

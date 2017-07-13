@@ -5,15 +5,20 @@ import $ from 'jquery'
  * which declared by `m-model` in template.
  */
 export default (bindName, node, mvvm, type) => {
-    console.log(222)
     let evtName = `${bindName}_Changed`;
 
     mvvm._server.on(evtName, (v) => {
-        mvvm._data[bindName] = (type === 'number' ? +v : v)
+        mvvm._data[bindName] = (type === 'number' ? Number(v) : v);
         return $(node).val(v);
     });
 
-    Object.defineProperty(mvvm.data, bindName, {
+    // also, we need the the keyUp Event
+    $(node).on('keyup', (e) => {
+        let v = e.target.value;
+        mvvm.data[bindName] = (type === 'number' ? +v : v);
+    }).val(mvvm.data[bindName]);
+
+    return Object.defineProperty(mvvm.data, bindName, {
         get(){
             return mvvm._data[bindName];
         },
@@ -24,5 +29,5 @@ export default (bindName, node, mvvm, type) => {
             }
             mvvm._server.emit(evtName, v);
         }
-    })
+    });
 }

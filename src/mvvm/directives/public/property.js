@@ -12,7 +12,7 @@ export default (bindName, node, mvvm, propertyName) => {
         return $(node).prop(propertyName, v)
     });
 
-    Object.defineProperty(mvvm.data, bindName, {
+    return Object.defineProperty(mvvm.data, bindName, {
         get(){
             return mvvm._data[bindName];
         },
@@ -20,5 +20,5 @@ export default (bindName, node, mvvm, propertyName) => {
             if (v === mvvm._data[bindName]) return;
             mvvm._server.emit(evtName, v);
         }
-    })
+    });
 }
