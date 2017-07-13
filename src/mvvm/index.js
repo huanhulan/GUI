@@ -18,9 +18,9 @@ class MVVM {
         }, config);
         this.data = JSON.parse(JSON.stringify(this.options.data));
 
-        this._data = JSON.parse(JSON.stringify(this.data));
         Object.defineProperty(this, '_data', {
-            enumerable: false
+            enumerable: false,
+            value:JSON.parse(JSON.stringify(this.data))
         });
 
         this._server = new EventEmitter2();
