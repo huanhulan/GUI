@@ -34,11 +34,11 @@ class CounterView {
 
         decreaseBtn.click(throttle(() => {
             this.presenter.onDecreaseBtnClick();
-        }, 200));
+        }, 100));
 
         increaseBtn.click(throttle(() => {
             this.presenter.onIncreaseBtnClick();
-        }, 200));
+        }, 100));
 
         input.change((e) => {
             this.presenter.onChange();

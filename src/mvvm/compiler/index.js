@@ -194,7 +194,7 @@ class Binder {
     }
 
     addListener(node, eventName, fn) {
-        return node.addEventListener(eventName, throttle(fn.bind(this.mvvm), 200));
+        return node.addEventListener(eventName, throttle(fn.bind(this.mvvm), 100));
     }
 }
 Binder.binder = null;

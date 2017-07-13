@@ -54,11 +54,11 @@ class CounterView {
 
         decreaseBtn.click(throttle(() => {
             this._server.emit('decreaseBtnClickEvt')
-        }, 200));
+        }, 100));
 
         increaseBtn.click(throttle(() => {
             this._server.emit('increaseBtnClickEvt')
-        }, 200));
+        }, 100));
 
         input.change((e) => {
             this._server.emit('inputChange', e.target.value);
