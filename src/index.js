@@ -36,6 +36,11 @@ $(() => {
             handlePlusClick(e){
                 this.data.count += 1;
             }
+        },
+        watch: {
+            count(newValue){
+                console.log('new count value is:', newValue);
+            }
         }
 
     });

@@ -19,15 +19,16 @@ class MVVM {
         this.data = JSON.parse(JSON.stringify(this.options.data));
 
         this._data = JSON.parse(JSON.stringify(this.data));
-        // Object.defineProperty(this, '_data', {
-        //     enumerable: false,
-        //     value: Object.create(null)
-        // });
+        Object.defineProperty(this, '_data', {
+            enumerable: false
+        });
 
         this._server = new EventEmitter2();
-        Object.keys(this.options.watch).forEach((evt) => {
-            if (isFunction(this.options.watch[evt])) {
-                return this._server.on(evt, this.options.watch[evt])
+        Object.keys(this.options.watch).forEach((field) => {
+            let evt = field + '_Changed';
+
+            if (isFunction(this.options.watch[field])) {
+                return this._server.on(evt, this.options.watch[field])
             }
         });
     }
