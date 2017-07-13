@@ -18,7 +18,7 @@ export default (bindName, node, mvvm, type) => {
         mvvm.data[bindName] = (type === 'number' ? +v : v);
     }).val(mvvm.data[bindName]);
 
-    return Object.defineProperty(mvvm.data, bindName, {
+    Object.defineProperty(mvvm.data, bindName, {
         get(){
             return mvvm._data[bindName];
         },
@@ -30,4 +30,6 @@ export default (bindName, node, mvvm, type) => {
             mvvm._server.emit(evtName, v);
         }
     });
+
+    return mvvm._server.emit(evtName, mvvm._data[bindName]);
 }

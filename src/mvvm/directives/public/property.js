@@ -1,5 +1,3 @@
-import $ from 'jquery'
-
 /**
  * binder for updating a node's property and corresponding model
  * which declared by `:*` in template.
@@ -8,11 +6,12 @@ export default (bindName, node, mvvm, propertyName) => {
     let evtName = `${bindName}_Changed`;
 
     mvvm._server.on(evtName, (v) => {
+        console.log('set style')
         mvvm._data[bindName] = v;
-        return $(node).prop(propertyName, v)
+        node.setAttribute(propertyName, v);
     });
 
-    return Object.defineProperty(mvvm.data, bindName, {
+    Object.defineProperty(mvvm.data, bindName, {
         get(){
             return mvvm._data[bindName];
         },
@@ -21,4 +20,6 @@ export default (bindName, node, mvvm, propertyName) => {
             mvvm._server.emit(evtName, v);
         }
     });
+
+    return mvvm._server.emit(evtName, mvvm._data[bindName]);
 }

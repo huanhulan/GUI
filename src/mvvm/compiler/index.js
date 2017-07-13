@@ -156,8 +156,8 @@ class Binder {
                         .substring(child.textContent.indexOf('{{') + 2,
                             child.textContent.indexOf('}}'));
 
-                    directives.doubleQuoteVM(bindName, child, mvvm);
-                    return child.textContent = mvvm.data[bindName];
+                    child.textContent = '';
+                    return directives.doubleQuoteVM(bindName, child, mvvm);
                 }
 
                 if (child.attributes && child.attributes.length) {

@@ -12,7 +12,7 @@ export default (bindName, node, mvvm) => {
         return node.textContent = v;
     });
 
-    return Object.defineProperty(mvvm.data, bindName, {
+    Object.defineProperty(mvvm.data, bindName, {
         get(){
             return mvvm._data[bindName];
         },
@@ -21,4 +21,6 @@ export default (bindName, node, mvvm) => {
             mvvm._server.emit(evtName, v);
         }
     });
+
+    return mvvm._server.emit(evtName, mvvm._data[bindName]);
 }
