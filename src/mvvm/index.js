@@ -20,7 +20,7 @@ class MVVM {
 
         Object.defineProperty(this, '_data', {
             enumerable: false,
-            value:JSON.parse(JSON.stringify(this.data))
+            value: JSON.parse(JSON.stringify(this.data))
         });
 
         this._server = new EventEmitter2();
@@ -44,6 +44,10 @@ class MVVM {
             this.options.afterMount.apply(this);
         }
         return this;
+    }
+
+    _change(bindName, newData) {
+        return this.data[bindName] = newData;
     }
 }
 

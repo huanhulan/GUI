@@ -8,7 +8,7 @@ export default (bindName, node, mvvm) => {
     let constructor = type === 'number' ? Number : String;
 
     mvvm._server.on(evtName, (v) => {
-        mvvm._data[bindName] = constructor(v);
+        mvvm._change(bindName, constructor(v));
         return node.textContent = v;
     });
 

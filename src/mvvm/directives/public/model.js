@@ -15,7 +15,9 @@ export default (bindName, node, mvvm, type) => {
     // also, we need the the keyUp Event
     $(node).on('keyup', (e) => {
         let v = e.target.value;
-        mvvm.data[bindName] = (type === 'number' ? +v : v);
+
+        // view pass call to the VM
+        return mvvm._change(bindName, (type === 'number' ? +v : v));
     }).val(mvvm.data[bindName]);
 
     Object.defineProperty(mvvm.data, bindName, {

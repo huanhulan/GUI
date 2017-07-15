@@ -6,8 +6,8 @@ export default (bindName, node, mvvm, propertyName) => {
     let evtName = `${bindName}_Changed`;
 
     mvvm._server.on(evtName, (v) => {
-        mvvm._data[bindName] = v;
         node.setAttribute(propertyName, v);
+        return mvvm._change(bindName, v);
     });
 
     Object.defineProperty(mvvm.data, bindName, {

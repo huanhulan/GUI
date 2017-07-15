@@ -10,6 +10,7 @@ import './style/index.scss'
 $(() => {
     mvc($('#mvc'));
     mvp($('#mvp'));
+
     let app = new mvvm({
         template: `<div class="counter">
             <input type="number" name="counter" class="counter__input" m-model="count">
